@@ -1,0 +1,43 @@
+
+<ChatScreen>
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: logoToolBar
+            height: 50
+            title: "SimpleChat"
+            right_action_items: [['dots-vertical']]
+            margin: 0
+
+        MDGridLayout:
+            rows: 2
+
+            MDGridLayout:
+                cols: 1
+                rows: 0
+                ScrollView:
+                    size: self.size
+                    do_scroll_x: False
+                    Label:
+                        id: story_chat
+                        padding: [10, 5]
+                        text: root.chat_text
+                        id: msg_log
+                        text_size: self.width,None
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        font_size: root.height / 35
+
+        MDBoxLayout:
+            size_hint: None, None
+            width: 320
+            MDTextField:
+                id: message
+                hint_text: "Name"
+                mode: "fill"
+                fill_color: 0, 0, 0, .4
+                icon_right: "subdirectory-arrow-right"
+                icon_right_color: app.theme_cls.primary_color
+                on_text_validate:
+                    app.send_message(message.text)
+                    self.text = ""
